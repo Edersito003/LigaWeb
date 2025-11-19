@@ -71,13 +71,14 @@ function sampleNoticias(){
   ];
 }
 
-/* ----- parse clasificación ----- */
+/* ----- parse clasificación CSV separado por ; ----- */
 function parseClasificacion(raw){
   if(!raw) return sampleClas();
   const lines = raw.split('\n').map(l=>l.trim()).filter(Boolean);
   if(!lines.length) return [];
 
-  const sep = lines[0].includes('|') ? '|' : (lines[0].includes(',') ? ',' : null);
+  // Soporta ; | o , como separador
+  const sep = lines[0].includes('|') ? '|' : (lines[0].includes(',') ? ',' : (lines[0].includes(';') ? ';' : null));
   if(!sep) return sampleClas();
 
   const firstCols = lines[0].split(sep).map(c=>c.trim());
@@ -87,30 +88,41 @@ function parseClasificacion(raw){
   let header = null;
   if(hasHeader) header = dataLines.shift().split(sep).map(h=>h.trim());
 
+  const parseNumber = str => Number((str||'').replace(',', '.')) || 0;
+
   const rows = dataLines.map(l=>{
     const cols = l.split(sep).map(c=>c.trim());
     const obj = {};
     if(hasHeader){
-      for(let i=0;i<header.length;i++) obj[header[i]] = cols[i] || '';
+      for(let i=0;i<header.length;i++){
+        let val = cols[i] || '';
+        // convertir números automáticamente
+        if(['Posicion_Liga','ELO_Rating','Puntos','Partidos_Jugados','Victorias','Empates','Derrotas','Goles_a_Favor','Goles_en_Contra','Diferencia_de_Goles','AVG_Goles_Marcados','AVG_Goles_Recibidos','Partidos_por_Jugar'].includes(header[i])){
+          val = parseNumber(val);
+        }
+        obj[header[i]] = val;
+      }
+      // fallback para last5/form
       if(!obj.form){
         const maybe = Object.values(obj).find(v => typeof v==='string' && /^[\sVvEeDd\-\,]+$/.test(v) && v.trim().length<=20);
         if(maybe) obj.form = maybe;
       }
     } else {
-      obj.pos  = cols[0] || '';
+      obj.pos  = parseNumber(cols[0]);
       obj.team = cols[1] || '';
-      obj.pts  = cols[2] || '';
-      obj.pj   = cols[3] || '';
-      obj.v    = cols[4] || '';
-      obj.e    = cols[5] || '';
-      obj.p    = cols[6] || '';
-      obj.gf   = cols[7] || '';
-      obj.gc   = cols[8] || '';
-      obj.dg   = cols[9] || '';
+      obj.pts  = parseNumber(cols[2]);
+      obj.pj   = parseNumber(cols[3]);
+      obj.v    = parseNumber(cols[4]);
+      obj.e    = parseNumber(cols[5]);
+      obj.p    = parseNumber(cols[6]);
+      obj.gf   = parseNumber(cols[7]);
+      obj.gc   = parseNumber(cols[8]);
+      obj.dg   = parseNumber(cols[9]);
       obj.form = (cols[11] || cols[10] || '').trim();
     }
+
+    // limpiar y generar last5
     obj.form = (obj.form || '').replace(/\s{2,}/g,' ').trim();
-    // crear last5 para modal
     obj.last5 = obj.form ? obj.form.replace(/\s/g,'').slice(-5).split('') : [];
     return obj;
   });
@@ -118,12 +130,14 @@ function parseClasificacion(raw){
   return rows;
 }
 
+// ejemplo de fallback si no hay CSV válido
 function sampleClas(){
   return [
-    {pos:'1',team:'Aston Villa',pts:'78',pj:'34',v:'23',e:'9',p:'2',gf:'91',gc:'47',dg:'44',form:'VVEDV',last5:['V','V','E','D','V']},
-    {pos:'2',team:'KFC Nise Team',pts:'76',pj:'34',v:'21',e:'13',p:'0',gf:'87',gc:'49',dg:'38',form:'VVVVE',last5:['V','V','V','V','E']}
+    {pos:1,team:'Aston Villa',pts:78,pj:34,v:23,e:9,p:2,gf:91,gc:47,dg:44,form:'VVEDV',last5:['V','V','E','D','V']},
+    {pos:2,team:'KFC Nise Team',pts:76,pj:34,v:21,e:13,p:0,gf:87,gc:49,dg:38,form:'VVVVE',last5:['V','V','V','V','E']}
   ];
 }
+
 
 /* ----- parse ultima/proxima jornada ----- */
 function parseBlocks(raw){
