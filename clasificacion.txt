@@ -1,0 +1,24 @@
+1|Everton|26|12|8|2|2|26|18|8|0.750|D E V E D
+2|Ipswich Town|26|12|8|2|2|25|17|8|0.750|V V V V V
+3|Golden Wind|25|12|7|4|1|29|18|11|0.750|V V V E V
+4|Aston Villa|24|12|7|3|2|32|16|16|0.708|V D V E V
+5|Bladequack F.C.|24|12|6|6|0|32|20|12|0.750|V E V E V
+6|KFC Nise Team|23|12|6|5|1|31|20|11|0.708|D E V V V
+7|Millwall|22|12|6|4|2|34|24|10|0.667|V V V V E
+8|Hull City|22|12|6|4|2|26|18|8|0.667|E E D V V
+9|Northampton F.C.|20|12|6|2|4|35|25|10|0.583|D E V E V
+10|Bipolares F.C.|20|12|6|2|4|25|19|6|0.583|D V V D D
+11|Gillingham|20|12|6|2|4|23|20|3|0.583|V E D V D
+12|Wolverhampton|18|12|5|3|4|18|19|-1|0.542|D E V V D
+13|West Brom|18|12|4|6|2|24|20|4|0.583|V E D E E
+14|AFC Bournemouth|14|12|3|5|4|21|22|-1|0.458|E V D D E
+15|Exeter City|13|12|3|4|5|17|19|-2|0.417|E E V D E
+16|Middlesbrough|13|12|3|4|5|18|26|-8|0.417|E V E V E
+17|Southampton F.C.|12|12|3|3|6|25|30|-5|0.375|V E E D D
+18|Reading F.C.|12|12|3|3|6|16|21|-5|0.375|E D D D V
+19|Blackburn Rovers|10|12|2|4|6|18|26|-8|0.333|E E D E D
+20|Wigan Athletic|8|12|2|2|8|15|29|-14|0.250|E D D V D
+21|Wycombe Wanderers|8|12|1|5|6|17|26|-9|0.292|D D D E D
+22|Inca F.C.|6|12|2|0|10|14|31|-17|0.167|D D D D V
+23|Norwich City|4|12|0|4|8|10|27|-17|0.167|D D D D E
+24|Sylver Stone|3|12|0|3|9|18|38|-20|0.125|E E D D D

@@ -1,0 +1,77 @@
+:root{
+  --bg:#0f1724;
+  --card:#0b1220;
+  --accent:#ff6b6b;
+  --muted:#94a3b8;
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+  --gold:#ffd700;
+  --silver:#c0c0c0;
+  --bronze:#cd7f32;
+  --topblue:#4da6ff;
+  --greenplay:#33cc99;
+  --orangeplay:#ff8c00;
+  --reddesc:#ff4d4d;
+}
+
+/* Base */
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#061021 0%,#081827 60%);}
+.container{max-width:1200px;margin:28px auto;padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 30px rgba(2,6,23,0.7);}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+header h1{margin:0;font-size:20px;letter-spacing:0.6px}
+header p{margin:0;color:var(--muted)}
+nav{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:8px 14px;border-radius:8px;background:var(--glass);cursor:pointer;color:var(--muted);border:1px solid rgba(255,255,255,0.02);user-select:none}
+.tab.active{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));color:#fff;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+main{display:grid;grid-template-columns:1fr 360px;gap:18px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+.news-list{display:flex;flex-direction:column;gap:12px;max-height:400px;overflow-y:auto;padding-right:6px;}
+.news-item{padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);display:flex;flex-direction:column;cursor:pointer;transition:transform .12s, background .12s}
+.news-item:hover{transform:translateY(-4px);background:rgba(255,255,255,0.015)}
+.news-item h3{margin:0 0 6px 0;font-size:15px}
+.meta{font-size:12px;color:var(--muted)}
+.news-snippet{margin-top:8px;color:var(--muted);font-size:13px;line-height:1.45;white-space:pre-line}
+.news-more{margin-top:8px;color:var(--accent);font-weight:600;font-size:13px}
+.small{font-size:12px;color:var(--muted)}
+.result-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
+.win{background:limegreen}
+.draw{background:gray}
+.loss{background:#ff6b6b}
+.match-row{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;background:rgba(255,255,255,0.01);cursor:pointer;transition:background .12s}
+.match-row:hover{background:rgba(255,255,255,0.015)}
+.muted{color:var(--muted)}
+.switch{display:flex;gap:8px;align-items:center}
+.btn{padding:8px 12px;border-radius:8px;background:var(--accent);color:white;border:none;cursor:pointer}
+.secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.goal-list{display:flex;flex-direction:column;gap:6px}
+.center{display:flex;justify-content:center;align-items:center}
+.special-tab {background: rgba(255, 255, 255, 0.03);border: 1px solid rgba(255, 255, 255, 0.05);color: #ffa;font-weight: 600;}
+.special-tab:hover {background: rgba(255, 255, 255, 0.06);transform: translateY(-2px);}
+footer{margin-top:14px;color:var(--muted);font-size:13px}
+
+/* modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(1,6,12,0.7);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.modal{max-width:900px;width:100%;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 18px 60px rgba(2,6,23,0.9);color:#eaf4ff}
+.modal h2{margin:0 0 8px 0}
+.modal .meta{margin-bottom:12px}
+.modal .body{white-space:pre-line;line-height:1.5;color:#e7f2ff}
+.modal .close-btn{position:absolute;right:24px;top:18px;background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer;padding:6px;border-radius:8px}
+.modal-inner{position:relative}
+
+/* Clasificación por puestos */
+.top1 { background: linear-gradient(90deg, rgb(203, 173, 0), #877929); font-weight:700; }
+.top3 { background: linear-gradient(90deg, #009d00, #388838); }
+.top4_5 { background: linear-gradient(90deg, #004387, #2c567d); }
+.top6_7_8 { background: linear-gradient(90deg, #4b009c, #562f86); }
+.playoff { background: linear-gradient(90deg, #972d00, #934b30); }
+.descenso { background: linear-gradient(90deg, #9e0000, #782525); }
+
+/* Tabla: bordes y hover sutil */
+table{width:100%;border-collapse:collapse;table-layout:auto}
+table tbody tr{transition:all .15s}
+table tbody tr:hover{background:rgba(255,255,255,0.03);}
+
+/* Responsive */
+@media(max-width:1000px){main{grid-template-columns:1fr} .container{margin:12px;padding:14px}}
+@media(max-width:560px){.tab{padding:6px 10px;font-size:13px} .modal{padding:14px}}

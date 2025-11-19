@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>La Liga Inazuma — La Web Oficial</title>
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* estilos mínimos para que las pestañas funcionen */
+    .tab { cursor: pointer; padding: 6px 12px; display:inline-block; margin-right:6px; border-radius:4px; background:#222; color:#fff; }
+    .tab.active { background:#444; }
+    .tab-content { display:none; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <div>
+      <h1>La Liga Inazuma — Temporada</h1>
+      <p>Pasión, Técnica y Supertécnicas. La liga que nunca duerme.</p>
+    </div>
+    <div class="small muted">Prototype · Web local · Datos desde archivos TXT</div>
+  </header>
+
+  <!-- Tabs -->
+  <nav id="tabs">
+    <div class="tab active" data-tab="newsView">Últimas noticias</div>
+    <div class="tab" data-tab="standingsView">Clasificación</div>
+    <div class="tab" data-tab="lastView">Última Jornada</div>
+    <div class="tab" data-tab="nextView">Próxima Jornada</div>
+    <div id="challengeTab" class="tab special-tab">La Liga al completo</div>
+  </nav>
+
+  <!-- Main Grid -->
+  <main>
+
+    <!-- Main Panel -->
+    <section id="mainPanel" class="card">
+
+      <!-- Noticias -->
+      <div id="newsView" class="tab-content" style="display:block">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h2 style="margin:0">Últimas noticias</h2>
+          <div class="small muted">Máximo 10 noticias · Más recientes primero</div>
+        </div>
+        <div id="newsList" class="news-list"></div>
+      </div>
+
+      <!-- Clasificación -->
+      <div id="standingsView" class="tab-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h2 style="margin:0">Clasificación</h2>
+          <div class="switch">
+            <button id="showTableBtn" class="tab active">Tabla</button>
+            <button id="showPredBtn" class="tab">Predicción</button>
+          </div>
+        </div>
+        <div id="tableContainer" style="overflow:auto;max-height:520px"></div>
+      </div>
+
+      <!-- Última Jornada -->
+      <div id="lastView" class="tab-content">
+        <h2>Última Jornada</h2>
+        <div id="lastList"></div>
+        <div id="lastDetail" style="margin-top:12px"></div>
+      </div>
+
+      <!-- Próxima Jornada -->
+      <div id="nextView" class="tab-content">
+        <h2>Próxima Jornada</h2>
+        <div id="nextList"></div>
+        <div id="nextDetail" style="margin-top:12px"></div>
+      </div>
+
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="card">
+      <h3>Panel rápido</h3>
+      <p class="small muted">Accesos rápidos y resúmenes.</p>
+
+      <div style="margin-top:12px">
+        <strong>Última noticia:</strong>
+        <div id="sideLatest" class="small muted">Cargando...</div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.02);margin:12px 0">
+
+      <div>
+        <strong>Top equipos (actual)</strong>
+        <div id="sideTop" class="small muted">Cargando...</div>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.02);margin:12px 0">
+
+      <div>
+        <strong>Archivos necesarios</strong>
+        <p class="small muted">
+          Coloca en la carpeta:
+          <code>noticias.txt</code>,
+          <code>clasificacion.txt</code>,
+          <code>ligaPredict.txt</code>,
+          <code>ultimaJ.txt</code>,
+          <code>proximaJ.txt</code>.
+        </p>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    Prototype · Gestión de ligas Inazuma · Funciona en local con archivos TXT.
+  </footer>
+
+</div>
+
+<!-- JS externo -->
+<script src="script.js"></script>
+<script>
+  /* Switch entre Tabla y Predicción dentro de Clasificación */
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const tableBtn = document.getElementById('showTableBtn')
+    const predBtn  = document.getElementById('showPredBtn')
+    tableBtn.addEventListener('click', ()=>{
+      tableBtn.classList.add('active')
+      predBtn.classList.remove('active')
+      init() // recarga tabla
+    })
+    predBtn.addEventListener('click', async ()=>{
+      tableBtn.classList.remove('active')
+      predBtn.classList.add('active')
+      const txt = await fetch('ligaPredict.txt').then(r=>r.text()).catch(()=>null)
+      const rows = parseClasificacion(txt)
+      renderPrediction(rows)
+    })
+  })
+</script>
+</body>
+</html>

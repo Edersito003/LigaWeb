@@ -1,0 +1,12 @@
+Southampton F.C.|Wycombe Wanderers|St Marys Stadium|2025-11-19 17:00
+Northampton F.C.|Blackburn Rovers|Sixfields Stadium|2025-11-20 17:00
+Hull City|Middlesbrough|KCOM Stadium|2025-11-19 19:00
+Bladequack F.C.|Golden Wind|Ducks Tank|2025-11-20 23:00
+Inca F.C.|Exeter City|Inca Cola Stadium|2025-11-19 23:00
+Gillingham|Everton|Priestfield Stadium|2025-11-20 19:00
+Millwall|KFC Nise Team|The Den|2025-11-20 23:00
+Reading F.C.|Sylver Stone|Madejski Stadium|2025-11-19 23:00
+Norwich City|AFC Bournemouth|Carrow Road|2025-11-19 21:00
+Wolverhampton|Ipswich Town|Molineux Stadium|2025-11-20 21:00
+Wigan Athletic|Aston Villa|DW Stadium|2025-11-20 21:00
+West Brom|Bipolares F.C.|The Hawthorns|2025-11-19 23:00
