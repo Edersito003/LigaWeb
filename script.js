@@ -358,6 +358,69 @@ async function init(){
       const rows = txt ? parseClasificacion(txt) : [];
       renderPrediction(rows);
     });
+    // Dentro de init() o al final del script después de DOMContentLoaded
+    const challengeTab = document.getElementById("challengeTab");
+    if(challengeTab){
+      challengeTab.addEventListener("click", () => {
+        // Mantener pestaña activa
+        document.querySelectorAll('#tabs > .tab').forEach(t => t.classList.remove('active'));
+        challengeTab.classList.add('active');
+
+        // Modal de confirmación
+        const overlay = document.createElement("div");
+        overlay.className = "modal-overlay";
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        modal.innerHTML = `
+          <div class="modal-inner">
+            <h2>¿Deseas salir de la web?</h2>
+            <p class="meta">Serás redirigido a la plataforma de torneos Challenge Place.</p>
+            <div style="display:flex; gap:12px; margin-top:20px;">
+              <button id="confirmYes" class="btn">Sí, continuar</button>
+              <button id="confirmNo" class="btn secondary">Cancelar</button>
+            </div>
+          </div>
+        `;
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        document.getElementById("confirmYes").onclick = () => {
+          window.open("https://challenge.place/c/68b5d58123000de9bea36dcb", "_blank");
+          overlay.remove();
+        };
+        document.getElementById("confirmNo").onclick = () => overlay.remove();
+
+        overlay.addEventListener("click", (e) => { if(e.target===overlay) overlay.remove(); });
+      });
+    }
+    // Función para renderizar predicción
+    function renderPrediction(rows){
+      predGlobal = rows || [];
+      const container = document.getElementById('tableContainer');
+      container.innerHTML = '';
+      if(!rows || !rows.length){
+        container.innerHTML = '<div class="small muted">Predicción no disponible.</div>';
+        return;
+      }
+      renderClasificacion(rows); // reutiliza tu función de renderización de tabla
+    }
+
+    // Configurar botones de alternancia
+    const tableBtn = document.getElementById('showTableBtn');
+    const predBtn  = document.getElementById('showPredBtn');
+    if(tableBtn && predBtn){
+      tableBtn.addEventListener('click', ()=>{
+        tableBtn.classList.add('active'); predBtn.classList.remove('active');
+        renderClasificacion(clasificacionGlobal);
+      });
+
+      predBtn.addEventListener('click', async ()=>{
+        predBtn.classList.add('active'); tableBtn.classList.remove('active');
+        const txt = await fetchTxt('ligaPredict.txt');
+        const rows = txt ? parseClasificacion(txt) : [];
+        renderPrediction(rows);
+      });
+    }
   }
 
   const [notTxt, clsTxt, ultTxt, proxTxt] = await Promise.all([
